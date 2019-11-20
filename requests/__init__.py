@@ -40,6 +40,11 @@ is at <https://requests.readthedocs.io>.
 :license: Apache 2.0, see LICENSE for more details.
 """
 
+'''
+@Time    :   2019/11/20 14:51:11
+@Author  :   Xia
+依赖检查，报错格式设置等
+'''
 import urllib3
 import chardet
 import warnings
@@ -77,7 +82,11 @@ def _check_cryptography(cryptography_version):
         cryptography_version = list(map(int, cryptography_version.split('.')))
     except ValueError:
         return
-
+    '''
+    @Time    :   2019/11/20 14:52:06
+    @Author  :   Xia
+    列表比大小默认从第一项开始，如果不是同类型会报错
+    '''
     if cryptography_version < [1, 3, 4]:
         warning = 'Old version of cryptography ({}) may cause slowdown.'.format(cryptography_version)
         warnings.warn(warning, RequestsDependencyWarning)
@@ -85,6 +94,13 @@ def _check_cryptography(cryptography_version):
 # Check imported dependencies for compatibility.
 try:
     check_compatibility(urllib3.__version__, chardet.__version__)
+    '''
+    @Time    :   2019/11/20 15:00:06
+    @Author  :   Xia
+    因为上述函数一个是使用 assert 比较，一个是抛出错误，看代码好像 try 可以捕获作用域内函数的错误
+    
+    warning.warn 函数的格式是 warning.warn(message,ErrorType),后面的 RequestsDependencyWarning 应该是封装在 exceptions.py 中的错误类型
+    '''
 except (AssertionError, ValueError):
     warnings.warn("urllib3 ({}) or chardet ({}) doesn't match a supported "
                   "version!".format(urllib3.__version__, chardet.__version__),
@@ -108,7 +124,11 @@ warnings.simplefilter('ignore', DependencyWarning)
 from .__version__ import __title__, __description__, __url__, __version__
 from .__version__ import __build__, __author__, __author_email__, __license__
 from .__version__ import __copyright__, __cake__
-
+'''
+@Time    :   2019/11/20 15:12:55
+@Author  :   Xia
+from . import xxx 表示从当前路径引用 xxx 文件
+'''
 from . import utils
 from . import packages
 from .models import Request, Response, PreparedRequest
@@ -124,7 +144,11 @@ from .exceptions import (
 # Set default logging handler to avoid "No handler found" warnings.
 import logging
 from logging import NullHandler
-
+'''
+@Time    :   2019/11/20 15:14:43
+@Author  :   Xia
+TODO
+'''
 logging.getLogger(__name__).addHandler(NullHandler())
 
 # FileModeWarnings go off per the default.
