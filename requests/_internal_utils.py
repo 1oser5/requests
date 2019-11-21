@@ -24,7 +24,7 @@ def to_native_string(string, encoding='ascii'):
     @Time    :   2019/11/20 16:42:30
     @Author  :   Xia
     因为看懂这个函数还去恶补了一下编码问题，我怀疑可能是 python2.x 使用的 str 编码和 python3.x 有所不同
-    事实上 python 有两种字符串类型，str 和 Unicode 
+    事实上 python2.x 有两种字符串类型，str 和 Unicode 
     str 是 ascii 编码，无法表示中文
 
     builtin_str 在 compat.py 里表示 ASCII

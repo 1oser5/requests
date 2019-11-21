@@ -9,7 +9,11 @@ This module implements the Requests API.
 :copyright: (c) 2012 by Kenneth Reitz.
 :license: Apache2, see LICENSE for more details.
 """
-
+'''
+@Time    :   2019/11/21 13:46:26
+@Author  :   Xia
+request 函数作为请求的基本方法，其余函数调用该函数
+'''
 from . import sessions
 
 

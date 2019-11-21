@@ -7,7 +7,11 @@ requests.adapters
 This module contains the transport adapters that Requests uses to define
 and maintain connections.
 """
-
+'''
+@Time    :   2019/11/21 10:24:09
+@Author  :   Xia
+可以使用适配器来自定义连接方式 HTTP/HTTPS
+'''
 import os.path
 import socket
 
@@ -134,6 +138,13 @@ class HTTPAdapter(BaseAdapter):
     def __setstate__(self, state):
         # Can't handle by adding 'proxy_manager' to self.__attrs__ because
         # self.poolmanager uses a lambda function, which isn't pickleable.
+        '''
+        @Time    :   2019/11/21 10:19:52
+        @Author  :   Xia
+        上述注释的意思是 self.poolmanager 属性是使用 self.init_poolmanager 来修改的，不能使用 setattr 设置
+
+        poolmanager 事实上是 urllib3 定义的一个类
+        '''
         self.proxy_manager = {}
         self.config = {}
 
@@ -215,18 +226,34 @@ class HTTPAdapter(BaseAdapter):
         if url.lower().startswith('https') and verify:
 
             cert_loc = None
+            '''
+            @Time    :   2019/11/21 10:40:19
+            @Author  :   Xia
+            verify 有两种类型，一种为布尔一种为字符串，这个 if 作用域以及判定了 verify 是 True 或者 string、 因此下面 233 行实际上是在判断 verify 是不是 string
+            如果 verify 是 string 则使用用户给定的 string 作为证书位置，如果不是则使用系统默认证书位置
 
+            如果是 HTTPS 协议的话是一定要有 TLS 证书的
+            '''
             # Allow self-specified cert location.
             if verify is not True:
                 cert_loc = verify
 
             if not cert_loc:
                 cert_loc = extract_zipped_paths(DEFAULT_CA_BUNDLE_PATH)
-
+            '''
+            @Time    :   2019/11/21 10:51:54
+            @Author  :   Xia
+            如果系统默认位置没有证书或者用户给定路径错误，抛出 IOError。
+            '''
             if not cert_loc or not os.path.exists(cert_loc):
                 raise IOError("Could not find a suitable TLS CA certificate bundle, "
                               "invalid path: {}".format(cert_loc))
-
+            '''
+            @Time    :   2019/11/21 10:53:10
+            @Author  :   Xia
+            将连接是否需要证书设置为 CERT_REQUIRED，同时 254 行判断证书路径是否为文件夹，如果是文件夹的话就将设置证书文件夹
+            我发现写这段代码的人似乎很喜欢用 not 判断语句，有点反常规。
+            '''
             conn.cert_reqs = 'CERT_REQUIRED'
 
             if not os.path.isdir(cert_loc):
@@ -237,7 +264,11 @@ class HTTPAdapter(BaseAdapter):
             conn.cert_reqs = 'CERT_NONE'
             conn.ca_certs = None
             conn.ca_cert_dir = None
-
+        '''
+        @Time    :   2019/11/21 11:09:21
+        @Author  :   Xia
+        不是 HTTP 协议的话，就是可选的 SSL 证书
+        '''
         if cert:
             if not isinstance(cert, basestring):
                 conn.cert_file = cert[0]
