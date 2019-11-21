@@ -6,6 +6,11 @@ requests.exceptions
 
 This module contains the set of Requests' exceptions.
 """
+'''
+@Time    :   2019/11/21 15:10:14
+@Author  :   Xia
+报错的归类和声明
+'''
 from urllib3.exceptions import HTTPError as BaseHTTPError
 
 

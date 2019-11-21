@@ -7,7 +7,17 @@ requests.compat
 This module handles import compatibility issues between Python 2 and
 Python 3.
 """
-
+'''
+@Time    :   2019/11/21 14:27:16
+@Author  :   Xia
+处理 py2 和 py3 的兼容性问题
+比如第三方库的引用方式和一些内置数据的类型区别
+py2 
+    字符串有两种 str 和 unicode
+    bytes 也被认为是 str
+    basestring 是 str 和 unicode 的父类
+    三种数字类型 long, int 和 float
+'''
 import chardet
 
 import sys

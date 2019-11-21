@@ -8,7 +8,12 @@ Compatibility code to be able to use `cookielib.CookieJar` with requests.
 
 requests.utils imports from here, so be careful with imports.
 """
-
+'''
+@Time    :   2019/11/21 15:09:02
+@Author  :   Xia
+为了使 requests 和 cookielib 兼容
+TODO 真的看不下去
+'''
 import copy
 import time
 import calendar
@@ -80,7 +85,11 @@ class MockRequest(object):
 
     def get_new_headers(self):
         return self._new_headers
-
+    '''
+    @Time    :   2019/11/21 14:49:22
+    @Author  :   Xia
+    Python 内置装饰器，在函数前使用 @property 后就可以像调用类属性一样调用类方法，如 a.unverifiable
+    '''
     @property
     def unverifiable(self):
         return self.is_unverifiable()

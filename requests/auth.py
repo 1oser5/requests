@@ -71,7 +71,11 @@ def _basic_auth_str(username, password):
 
 class AuthBase(object):
     """Base class that all auth implementations derive from"""
-
+    '''
+    @Time    :   2019/11/21 14:02:15
+    @Author  :   Xia
+    __call__ 方法使得实例对象可以像函数一样被调用
+    '''
     def __call__(self, r):
         raise NotImplementedError('Auth hooks must be callable.')
 
@@ -82,7 +86,11 @@ class HTTPBasicAuth(AuthBase):
     def __init__(self, username, password):
         self.username = username
         self.password = password
-
+    '''
+    @Time    :   2019/11/21 14:03:40
+    @Author  :   Xia
+    __eq__ 方法在使用 == 进行比较的时候会被调用，__ne__ 方法在使用 != 进行比较的时候会被调用
+    '''
     def __eq__(self, other):
         return all([
             self.username == getattr(other, 'username', None),
@@ -91,7 +99,11 @@ class HTTPBasicAuth(AuthBase):
 
     def __ne__(self, other):
         return not self == other
-
+    '''
+    @Time    :   2019/11/21 14:05:00
+    @Author  :   Xia
+    TODO 没看到调用这个方法的时候啊
+    '''
     def __call__(self, r):
         r.headers['Authorization'] = _basic_auth_str(self.username, self.password)
         return r

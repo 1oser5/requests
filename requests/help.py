@@ -22,7 +22,11 @@ else:
     import OpenSSL
     import cryptography
 
-
+'''
+@Time    :   2019/11/21 15:15:35
+@Author  :   Xia
+使用 Python 的 platform 库可以获得系统的信息，解释器，操作系统啥的
+'''
 def _implementation():
     """Return a dict with the Python implementation and version.
 
@@ -38,6 +42,11 @@ def _implementation():
 
     if implementation == 'CPython':
         implementation_version = platform.python_version()
+    '''
+    @Time    :   2019/11/21 15:16:37
+    @Author  :   Xia
+    为什么 Python 写的解释器 platform 不支持啊,还得调用 sys 😂
+    '''
     elif implementation == 'PyPy':
         implementation_version = '%s.%s.%s' % (sys.pypy_version_info.major,
                                                sys.pypy_version_info.minor,

@@ -32,3 +32,10 @@ def dispatch_hook(key, hooks, hook_data, **kwargs):
             if _hook_data is not None:
                 hook_data = _hook_data
     return hook_data
+    '''
+    @Time    :   2019/11/21 15:50:04
+    @Author  :   Xia
+    28行判断了 hooks 中有没有可调用对象，如果有的话，就把 hook 变成一个数组
+    然后遍历调用每一个可调用对象，记录上次以保存的值，这个可用用来防御 SSRF 漏洞。
+    '''
+        
