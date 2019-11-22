@@ -38,7 +38,11 @@ class CaseInsensitiveDict(MutableMapping):
     operations are given keys that have equal ``.lower()``s, the
     behavior is undefined.
     """
-
+    '''
+    @Time    :   2019/11/22 09:54:23
+    @Author  :   Xia
+    能忽略大小的原因是他都提前转换为小写的
+    '''
     def __init__(self, data=None, **kwargs):
         self._store = OrderedDict()
         if data is None:
@@ -98,7 +102,13 @@ class LookupDict(dict):
 
     def __getitem__(self, key):
         # We allow fall-through here, so values default to None
-
+        '''
+        @Time    :   2019/11/22 11:29:52
+        @Author  :   Xia
+        __dict__属性
+        如果是类调用：返回类属性以及函数
+        如果是实例调用：返回实例属性
+        '''
         return self.__dict__.get(key, None)
 
     def get(self, key, default=None):

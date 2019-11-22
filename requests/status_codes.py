@@ -19,7 +19,11 @@ Some codes have multiple names, and both upper- and lower-case versions of
 the names are allowed. For example, ``codes.ok``, ``codes.OK``, and
 ``codes.okay`` all correspond to the HTTP status code 200.
 """
-
+'''
+@Time    :   2019/11/22 09:41:12
+@Author  :   Xia
+为了处理各式各样的状态码返回的信息
+'''
 from .structures import LookupDict
 
 _codes = {

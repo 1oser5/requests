@@ -413,7 +413,11 @@ class Session(SessionRedirectMixin):
         self.adapters = OrderedDict()
         self.mount('https://', HTTPAdapter())
         self.mount('http://', HTTPAdapter())
-
+    '''
+    @Time    :   2019/11/22 09:27:34
+    @Author  :   Xia
+    定义了 __enter__ 和 __exit__ 之后可以使用 with 进行操作
+    '''
     def __enter__(self):
         return self
 
